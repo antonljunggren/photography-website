@@ -50,7 +50,7 @@ const App: Component = () => {
         <For each={imagesData()} fallback={<p>Loading ...</p>}>
           {(image : ImageData)=> 
           <img src={blobUrl+'/'+ image.image_sd} class='md:w-auto p-2 hover:p-4 hover:shadow-2xl grow w-auto' 
-            onclick={(e) => { imageToShow = image; setShowImageModal(true);}}/>
+            onclick={(e) => { /*imageToShow = image; setShowImageModal(true);*/e.preventDefault();}}/>
           }
         </For>
       </div>
