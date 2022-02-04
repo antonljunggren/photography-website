@@ -41,7 +41,7 @@ const App: Component = () => {
 
   return (
     //<p class="text-4xl text-green-700 text-center py-20">Hello world!</p>
-    <main class='bg-white container'>
+    <main class='bg-white container w-screen mx-auto'>
       <div class='container py-4'>
         <p class='text-center text-5xl'>Anton Ljunggren</p>
         <p class='text-center text-3xl py-1'>Film Photography</p>
@@ -49,7 +49,7 @@ const App: Component = () => {
       <div class='container py-4 flex flex-wrap'>
         <For each={imagesData()} fallback={<p>Loading ...</p>}>
           {(image : ImageData)=> 
-          <img src={blobUrl+'/'+ image.image_sd} class='md:w-auto p-2 hover:p-4 hover:shadow-2xl grow w-auto' 
+          <img src={blobUrl+'/'+ image.image_sd} class='p-2 hover:p-4 hover:shadow-2xl grow h-auto' 
             onclick={(e) => { /*imageToShow = image; setShowImageModal(true);*/e.preventDefault();}}/>
           }
         </For>
