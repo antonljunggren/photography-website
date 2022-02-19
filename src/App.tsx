@@ -6,13 +6,13 @@ const App: Component = () => {
   const [imagesData, setImagesData] = createSignal([]);
 
   type ImageData = {
-    description:string,
-    film:string,
-    image_hd:string,
-    image_sd:string
+    Description:string,
+    Footage_Data:string,
+    Image_Hd:string,
+    Image_Sd:string
   }
 
-  const apiUrl = "https://photoapiantonlj.azure-api.net";
+  //const apiUrl = "https://photoapiantonlj.azure-api.net";
   const blobUrl = "https://phtostorageantonlj.blob.core.windows.net/photographs"
 
   const listOfImages =[
@@ -25,15 +25,15 @@ const App: Component = () => {
   var imageToShow: ImageData = null;
 
   const fetchImagesData = () => {
-    fetch(apiUrl + '/images/images.json')
+    fetch(blobUrl + '/images.json')
       .then(res => {
         if(res.ok) {
-          var data = res.json() as Promise<ImageData[]>;
+          var data = res.json();
           return data;
         }
       })
       .then(data => {
-        setImagesData(data);
+        setImagesData(data['Images']);
       });
   }
 
@@ -41,15 +41,15 @@ const App: Component = () => {
 
   return (
     //<p class="text-4xl text-green-700 text-center py-20">Hello world!</p>
-    <main class='bg-white container w-screen mx-auto'>
-      <div class='container py-4'>
+    <main class='bg-white w-full px-4'>
+      <div class='text-center py-4'>
         <p class='text-center text-5xl'>Anton Ljunggren</p>
         <p class='text-center text-3xl py-1'>Film Photography</p>
       </div>
-      <div class='container py-4 flex flex-wrap'>
+      <div class='md:w-9/12 mx-auto py-4 flex flex-row justify-between items-center flex-wrap'>
         <For each={imagesData()} fallback={<p>Loading ...</p>}>
           {(image : ImageData)=> 
-          <img src={blobUrl+'/'+ image.image_sd} class='p-2 hover:p-4 hover:shadow-2xl grow h-auto' 
+          <img src={blobUrl+'/'+ image.Image_Sd} class='p-1 hover:p-2 hover:shadow-2xl grow' 
             onclick={(e) => { /*imageToShow = image; setShowImageModal(true);*/e.preventDefault();}}/>
           }
         </For>
@@ -69,8 +69,8 @@ const App: Component = () => {
               </svg>
             </div>
             <div class='bg-white w-full shadow-2xl'>
-              <img src={blobUrl+'/'+imageToShow.image_hd} alt='Loading ...' class='mx-auto' style='width:90%'/>
-              <p class='text-center text-xl'>{imageToShow.description}</p>
+              <img src={blobUrl+'/'+imageToShow.Image_Hd} alt='Loading ...' class='mx-auto' style='width:90%'/>
+              <p class='text-center text-xl'>{imageToShow.Description}</p>
             </div>
           </div>
         </div>
